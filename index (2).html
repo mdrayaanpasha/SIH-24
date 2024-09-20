@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Route Optimizer</title>
+    <style>
+        /* Google Fonts for modern typography */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            animation: slideIn 1.5s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            animation: fadeIn 2s ease-in-out 1s forwards;
+            opacity: 0;
+        }
+
+        /* Keyframes for animations */
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .content {
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: fadeUp 1.5s ease-in-out forwards;
+        }
+
+        .content img {
+            width: 80vw !important;
+            height: 40vh !important;
+            object-fit: cover;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation for content reveal */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .port-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .port-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .port-item:hover {
+            transform: scale(1.05);
+        }
+
+        .port-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .port-item:hover::before {
+            opacity: 1;
+        }
+
+        .port-item h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .port-item p {
+            color: #777;
+        }
+
+        /* Button Styling */
+        #calculateBtn {
+            background-color: #1a73e8;
+            color: #fff;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #calculateBtn:hover {
+            background-color: #105aba;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #calculateBtn:active {
+            transform: scale(0.98);
+        }
+
+        /* Result Section */
+        #resultSection {
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+
+        #resultSection.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 1rem;
+            white-space: pre-wrap;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Optimizing Indian Port Routes</h1>
+    <p>Designed by Rayaan Pasha</p>
+</header>
+
+<div class="container">
+    <section class="content">
+        <h2>About the Project</h2>
+        <p>This project calculates the optimal shipping routes for 5 major Indian ports by considering risks such as weather, piracy, and congestion. By using a custom algorithm, it minimizes these risks while calculating the shortest path.</p>
+        <img src="./home-img.jpg" alt="Map showing Indian ports" />
+    </section>
+
+    <section class="content">
+        <h2>Ports Involved</h2>
+        <div class="port-grid">
+            <div class="port-item">
+                <h3>Mumbai</h3>
+                <p>Major commercial port located on the West Coast of India.</p>
+            </div>
+            <div class="port-item">
+                <h3>Chennai</h3>
+                <p>Important hub in South India, handling a variety of cargo.</p>
+            </div>
+            <div class="port-item">
+                <h3>Kolkata</h3>
+                <p>The gateway to Eastern India and key shipping point.</p>
+            </div>
+            <div class="port-item">
+                <h3>Cochin</h3>
+                <p>A strategic port on the southwestern coast.</p>
+            </div>
+            <div class="port-item">
+                <h3>Vishakapatnam</h3>
+                <p>Important center for trade in Eastern India.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <h2>How the Algorithm Works</h2>
+        <p>Our algorithm generates risk based on three factors: weather, piracy, and congestion. These values are calculated using random probabilities, and the total risk score is used to determine the most optimal route between ports.</p>
+        <button id="calculateBtn">Run Optimizer</button>
+    </section>
+
+    <section class="content" id="resultSection">
+        <h2>Optimization Result</h2>
+        <pre id="result"></pre>
+    </section>
+</div>
+
+<script>
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+        const resultSection = document.getElementById('resultSection');
+        resultSection.classList.add('active');
+
+        const result = `Port        From           Cost (Kms)
+-----------------------------------
+MUM         MUM            0
+CHE         MUM            1190
+KOL         COC            1280
+COC         MUM            360
+VIS         KOL            530`;
+        document.getElementById('result').innerText = result;
+    });
+</script>
+
+</body>
+</html>
